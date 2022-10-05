@@ -163,12 +163,12 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.bottomWidget.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0.511364, x2:1, y2:0.523, stop:0 #483D8B, stop:1 #6A5ACD);")
 
         self.logoWidget = QtWidgets.QLabel(self.bottomWidget)
-        self.logoWidget.setGeometry(QtCore.QRect(40,7,210,35))
-        self.logoImage = QtGui.QImage("logo-fireguard.png").scaled(QtCore.QSize(210,35))
+        self.logoWidget.setGeometry(QtCore.QRect(40,7,160,32))
+        self.logoImage = QtGui.QImage("logo-fireguard.png").scaled(QtCore.QSize(160,32))
         self.logoWidget.setPixmap(QtGui.QPixmap(self.logoImage))
 
         self.timeWiget = QtWidgets.QLabel(self.bottomWidget)
-        self.timeWiget.setGeometry(QtCore.QRect(300,8,280,35))
+        self.timeWiget.setGeometry(QtCore.QRect(250,8,280,35))
         font = QtGui.QFont()
         font.setFamily("휴먼엑스포")
         font.setPointSize(11)
