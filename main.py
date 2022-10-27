@@ -30,6 +30,10 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.timer2.timeout.connect(self.setWeather)
         self.weather_count= 1
         self.log = ''
+        self.on_alam = False
+        self.blink = True
+        self.blink_count = 0
+        self.blink_timer = None
 
     def setupUi(self):
         self.program_height = ctypes.windll.user32.GetSystemMetrics(1) - 70
@@ -244,12 +248,35 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
     def keyPressEvent(self, e):
         if e.key() == QtCore.Qt.Key_Space:
-            self.alam.show()
+            self.onAlam()
+        
+    def onAlam(self):
+        if self.on_alam == False:
+            self.on_alam = True
             time = QTime.currentTime()
             self.log = self.log + time.toString()+' : 산불 발생\n'
             self.logWidget.setText(self.log)
-        elif e.key() == QtCore.Qt.Key_Escape:
+            self.alam.show()
+            self.blink = False
+            self.blink_timer = QtCore.QTimer(self)
+            self.blink_timer.timeout.connect(self.blinkAlam)
+            self.blink_timer.start(1000)
+
+    def blinkAlam(self):
+        if self.blink == False:
             self.alam.hide()
+            self.blink = True
+        else:
+            self.alam.show()
+            self.blink = False
+        if self.blink_count <5:
+            self.blink_count = self.blink_count + 1
+        else:
+            self.blink_timer.stop()
+            self.blink_count = 0
+            self.on_alam = False
+            self.alam.hide()
+            self.blink = True
 
     
 if __name__ == '__main__':
